@@ -1,8 +1,8 @@
-import Header from "./Header";
+import Header from './Header';
 
 type Props = {
   children: JSX.Element;
-}
+};
 
 export default function ContentLayout({ children }: Props) {
   return (
@@ -10,5 +10,5 @@ export default function ContentLayout({ children }: Props) {
       <Header />
       {children}
     </>
-  )
+  );
 }

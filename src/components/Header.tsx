@@ -1,17 +1,13 @@
 import { Link } from 'react-router-dom';
 import styles from './header.module.css';
 import { useUser } from '../hooks/useUser';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { User } from '../types';
 
 export default function Header() {
   const { user, removeUser } = useUser();
-  const [storedUser, setUser] = useLocalStorage('user', {} as User);
 
   const logout = () => {
-    setUser({} as User);
     removeUser();
-  }
+  };
 
   return (
     <div className={styles.header}>
@@ -20,6 +16,11 @@ export default function Header() {
           Dashboard
         </Link>
       </div>
+      {user?.id && (
+        <Link className={styles.btn} to="/user">
+          User
+        </Link>
+      )}
       <div className={styles.login}>
         {user?.id ? (
           <Link onClick={logout} className={styles.btn} to="/">

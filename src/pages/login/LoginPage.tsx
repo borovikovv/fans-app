@@ -1,22 +1,19 @@
 import { ChangeEvent, useState } from 'react';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useUser } from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
-import { User } from '../../types';
 import styles from './login.module.css';
 
 export default function LoginPage() {
   let navigate = useNavigate();
-  const { setLoginedUser } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [user, setUser] = useLocalStorage('user', {} as User);
+  const { setLoginedUser } = useUser();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if(!email || !password) {
+
+    if (!email || !password) {
       setError('Provide email and password');
       return;
     }
@@ -25,23 +22,22 @@ export default function LoginPage() {
       isOnline: true,
       id: 1,
       firstName: 'Albert',
-      lastName: 'Einstein',
+      lastName: 'Einstein'
     };
 
-    setUser(user);
     setLoginedUser(user);
     navigate('/user');
-  }
+  };
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setError('');
-  }
+  };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     setError('');
-  }
+  };
 
   return (
     <div className={styles.page}>
@@ -71,9 +67,7 @@ export default function LoginPage() {
         <button className={styles.btn} onClick={onSubmit}>
           Log In
         </button>
-        {
-          error && <p className={styles.error}>{error}</p>
-        }
+        {error && <p className={styles.error}>{error}</p>}
       </form>
     </div>
   );
